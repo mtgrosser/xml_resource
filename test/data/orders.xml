@@ -1,0 +1,82 @@
+<someroot>
+  <order>
+    <id>1</id>
+    <info>
+      <foo type="bar">A</foo>
+      <date>2012-08-27</date>
+      <foo type="non">sense</foo>
+    </info>
+    <shipping_cost>12.99</shipping_cost>
+    <customer>
+      <first_name>Mister</first_name>
+      <last_name>Spock</last_name>
+    </customer>
+    <contact>
+      <first_name>E</first_name>
+      <last_name>F</last_name>
+    </contact>
+    <items>
+      <i>
+        <quantity>3</quantity>
+        <name>1Three</name>
+      </i>
+    </items>
+  </order>
+  
+  <order>
+    <id>2</id>
+    <info>
+      <foo type="non">blubb</foo>
+      <foo type="bar">B</foo>
+      <date>2012-08-26</date>
+    </info>
+    <shipping_cost>10</shipping_cost>
+    <customer>
+      <first_name>Käptn</first_name>
+      <last_name>Kirk</last_name>
+    </customer>
+    <contact>
+      <first_name>A</first_name>
+      <last_name>B</last_name>
+    </contact>
+    <items>
+      <i>
+        <quantity>3</quantity>
+        <name>2Three</name>
+      </i>
+      <i>
+        <quantity>2</quantity>
+        <name>2Two</name>
+      </i>
+    </items>
+  </order>
+  
+  <order>
+    <id>3</id>
+    <info>
+      <foo type="non">wah</foo>
+      <foo type="bar">C</foo>
+      <date>2012-08-25</date>
+    </info>
+    <shipping_cost>-12.99</shipping_cost>
+    <contact>
+      <first_name>C</first_name>
+      <last_name>D</last_name>
+    </contact>
+    <items>
+      <i>
+        <quantity>3</quantity>
+        <name>3Three</name>
+      </i>
+      <i>
+        <quantity>2</quantity>
+        <name>3Two</name>
+      </i>
+      <i>
+        <quantity>1</quantity>
+        <name>3One</name>
+      </i>
+    </items>    
+  </order>
+  
+</someroot>
