@@ -3,8 +3,8 @@ xml_resource
 
 Turn XML into Ruby objects
 
-
-```xml
+```ruby
+xml = %q{
 <library>
   <books>
     <book>
@@ -23,9 +23,8 @@ Turn XML into Ruby objects
     <till>06:00 PM</till>
   </hours>
 </library>
-```
+}
 
-```ruby
 class Library < XmlResource::Base
   has_collection :books
 
@@ -41,6 +40,9 @@ end
 
 library = Library.from_xml(xml)
 => #<Library:0x00000100dcf7e8 @attributes={"open_from"=>"08:00 AM", "open_till"=>"06:00 PM"}, @books=[#<Book:0x00000100dd1778 @attributes={"name"=>"The Tempest", "author"=>"William Shakespeare", "published"=>Tue, 01 Nov 1611}>, #<Book:0x00000100dcfbd0 @attributes={"name"=>"Moby-Dick", "author"=>"Herman Melville", "published"=>Sat, 18 Oct 1851}>]>
+
+library.open_from
+=> "08:00 AM"
 
 book = library.books.first
 => #<Book:0x00000100dd1778 @attributes={"name"=>"The Tempest", "author"=>"William Shakespeare", "published"=>Tue, 01 Nov 1611}>
