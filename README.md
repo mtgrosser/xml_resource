@@ -1,5 +1,8 @@
-xml_resource - Turn XML into Ruby objects
-=========================================
+xml_resource
+============
+
+Turn XML into Ruby objects
+
 
 ```xml
 <library>
