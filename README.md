@@ -3,6 +3,18 @@ xml_resource
 
 Turn XML into Ruby objects
 
+Install
+-------
+
+In your Gemfile:
+
+```ruby
+gem 'xml_resource', '~> 2.0.0'
+```
+
+Use
+---
+
 ```ruby
 xml = %q{
 <library>
