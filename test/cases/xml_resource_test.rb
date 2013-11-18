@@ -49,6 +49,10 @@ class XmlResourceTest < ActiveSupport::TestCase
     assert_raise(XmlResource::ParseError) { Order.collection_from_xml({}) }
   end
   
+  test 'Boolean attributes' do
+    assert_equal [true, false, true], orders.map { |o| o.finished }
+  end
+  
   private
   
   def orders

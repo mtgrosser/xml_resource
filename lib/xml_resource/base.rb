@@ -1,5 +1,7 @@
 module XmlResource
   class Base
+    TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE', 'on', 'ON'].to_set
+    
     class_attribute :attributes, :collections, :objects, :root_path
     self.attributes = {}
     self.collections = {}
@@ -45,7 +47,7 @@ module XmlResource
       end
     
       def root
-        self.root_path || "/#{self.basename.underscore}"
+        self.root_path || "./#{self.basename.underscore}"
       end
     
       def root=(root)
@@ -95,7 +97,7 @@ module XmlResource
       [:attribute, :object, :collection].each do |method_name|
         define_method "#{method_name}_xpath" do |name|
           options = send(method_name.to_s.pluralize)
-          options[name] && options[name][:xpath] or "/#{name}"
+          options[name] && options[name][:xpath] or "./#{name}"
         end
       end
 
@@ -124,7 +126,7 @@ module XmlResource
         when :string    then value
         when :integer   then value.to_i
         when :float     then value.to_f
-        when :boolean   then !!value
+        when :boolean   then cast_to_boolean(value)
         when :decimal   then BigDecimal.new(value)
         when :date      then Date.parse(value)
         when :datetime  then DateTime.parse(value)
@@ -133,10 +135,18 @@ module XmlResource
         end
       end
 
+      def cast_to_boolean(value)
+        if value.is_a?(String) && value.blank?
+          nil
+        else
+          TRUE_VALUES.include?(value)
+        end
+      end
+
       def parse(xml_or_string)
         case xml_or_string
-        when Hpricot::Elem, Hpricot::Elements then xml_or_string
-        when String then Hpricot.XML(xml_or_string).root
+        when Nokogiri::XML::Node, Nokogiri::XML::NodeSet then xml_or_string
+        when String then Nokogiri.XML(xml_or_string).root
         else
           raise XmlResource::ParseError, "cannot parse #{xml_or_string.inspect}"
         end 

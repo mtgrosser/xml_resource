@@ -1,4 +1,4 @@
 require 'active_support/core_ext'
-require 'hpricot'
+require 'nokogiri'
 require 'xml_resource/version'
 require 'xml_resource/base'
