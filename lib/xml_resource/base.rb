@@ -2,7 +2,7 @@ module XmlResource
   class Base
     TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE', 'on', 'ON'].to_set
     
-    class_attribute :attributes, :collections, :objects, :root_path
+    class_attribute :attributes, :collections, :objects, :root_path, :remove_namespaces
     self.attributes = {}
     self.collections = {}
     self.objects = {}
@@ -146,7 +146,10 @@ module XmlResource
       def parse(xml_or_string)
         case xml_or_string
         when Nokogiri::XML::Node, Nokogiri::XML::NodeSet then xml_or_string
-        when String then Nokogiri.XML(xml_or_string).root
+        when String
+          xml = Nokogiri.XML(xml_or_string)
+          xml.remove_namespaces! if remove_namespaces
+          xml.root
         else
           raise XmlResource::ParseError, "cannot parse #{xml_or_string.inspect}"
         end 

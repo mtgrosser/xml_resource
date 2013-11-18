@@ -1,0 +1,10 @@
+2.0.1 (2013-11-18)
+------------------
+
+* Add remove_namespaces option
+
+
+2.0.0 (2013-11-18)
+------------------
+
+* Use Nokogiri as XML parser
