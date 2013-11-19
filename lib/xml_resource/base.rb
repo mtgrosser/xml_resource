@@ -13,7 +13,7 @@ module XmlResource
   
     class << self
     
-      def from_xml(xml_or_string)
+      def from_xml(xml_or_string, default_attrs = {})
         xml_or_string and xml = parse(xml_or_string) or return
         attrs = {}
         self.attributes.each do |name, options|
@@ -23,7 +23,7 @@ module XmlResource
             if !value.nil? && type = attribute_type(name)
               value = cast_to(type, value)
             end
-            attrs[name] = value
+            attrs[name] = value.nil? ? default_attrs[name] : value
           end
         end
         self.objects.each do |name, options|
@@ -39,8 +39,8 @@ module XmlResource
         new attrs
       end
     
-      def collection_from_xml(xml_or_string)
-        parse(xml_or_string).search(root).map { |element| from_xml(element) }.compact
+      def collection_from_xml(xml_or_string, default_attrs = {})
+        parse(xml_or_string).search(root).map { |element| from_xml(element, default_attrs) }.compact
       end
     
       def basename

@@ -16,6 +16,9 @@
   <Dromedary>
     <Humps>1</Humps>
   </Dromedary>
+  <Dromedary>
+    <Color>gold</Color>
+  </Dromedary>
   <ELEPHANT>
     <COLOR>grey</COLOR>
   </ELEPHANT>

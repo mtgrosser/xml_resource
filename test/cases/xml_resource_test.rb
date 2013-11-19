@@ -58,7 +58,7 @@ class XmlResourceTest < ActiveSupport::TestCase
     camels = Camel.collection_from_xml(xml)
     dromedaries = Dromedary.collection_from_xml(xml)
     assert_equal [2, 2], camels.map(&:humps)
-    assert_equal [1], dromedaries.map(&:humps)
+    assert_equal [1, nil], dromedaries.map(&:humps)
     
     shark = Shark.collection_from_xml(xml).first
     assert_equal '2 m', shark.shark_size
@@ -66,6 +66,12 @@ class XmlResourceTest < ActiveSupport::TestCase
     
     elephant = Elephant.collection_from_xml(xml).first
     assert_equal 'grey', elephant.color
+  end
+  
+  test 'Default attributes' do
+    xml = load_xml(:inflection)
+    dromedaries = Dromedary.collection_from_xml(xml, humps: 3)
+    assert_equal [1, 3], dromedaries.map(&:humps)
   end
   
   private
