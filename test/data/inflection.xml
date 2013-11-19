@@ -1,0 +1,24 @@
+<animals>
+  <camel>
+    <camelColor>yellow</camelColor>
+    <camelPrice>1000</camelPrice>
+    <humps>2</humps>
+  </camel>
+  <shark>
+    <shark-color>white</shark-color>
+    <shark-size>2 m</shark-size>
+  </shark>
+  <camel>
+    <camelColor>brown</camelColor>
+    <camelPrice>1500</camelPrice>
+    <humps>2</humps>
+  </camel>
+  <Dromedary>
+    <Humps>1</Humps>
+  </Dromedary>
+  <ELEPHANT>
+    <COLOR>grey</COLOR>
+  </ELEPHANT>
+</animals>
+
+      

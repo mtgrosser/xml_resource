@@ -2,10 +2,11 @@ module XmlResource
   class Base
     TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE', 'on', 'ON'].to_set
     
-    class_attribute :attributes, :collections, :objects, :root_path, :remove_namespaces
+    class_attribute :attributes, :collections, :objects, :root_path, :remove_namespaces, :inflection
     self.attributes = {}
     self.collections = {}
     self.objects = {}
+    self.inflection = :underscore
   
     class XmlResource::ParseError < Exception; end
     class XmlResource::TypeCastError < Exception; end
@@ -47,7 +48,7 @@ module XmlResource
       end
     
       def root
-        self.root_path || "./#{self.basename.underscore}"
+        self.root_path || "./#{inflect(basename)}"
       end
     
       def root=(root)
@@ -97,7 +98,7 @@ module XmlResource
       [:attribute, :object, :collection].each do |method_name|
         define_method "#{method_name}_xpath" do |name|
           options = send(method_name.to_s.pluralize)
-          options[name] && options[name][:xpath] or "./#{name}"
+          options[name] && options[name][:xpath] or "./#{inflect(name)}"
         end
       end
 
@@ -153,6 +154,22 @@ module XmlResource
         else
           raise XmlResource::ParseError, "cannot parse #{xml_or_string.inspect}"
         end 
+      end
+      
+      def inflect(string)
+        string = string.to_s
+        case inflection
+        when :lower_camelcase
+          string.camelcase(:lower)
+        when :upper_camelcase
+          string.camelcase(:upper)
+        when :dasherize
+          string.underscore.dasherize
+        when nil
+          string.underscore
+        else
+          string.public_send(inflection)
+        end
       end
     end
   

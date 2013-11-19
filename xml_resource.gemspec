@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency "activesupport", ">= 3.1"
   s.add_dependency 'nokogiri'
 
-  s.add_development_dependency 'debugger'
+  s.add_development_dependency 'byebug'
 end

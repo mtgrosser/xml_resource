@@ -7,7 +7,7 @@ require 'xml_resource'
 class XmlResourceTest < ActiveSupport::TestCase
 
   setup do
-    xml = File.read(File.expand_path(File.dirname(__FILE__) + '/../data/orders.xml'))
+    xml = load_xml(:orders)
     @orders = Order.collection_from_xml(xml)
   end    
   
@@ -53,10 +53,29 @@ class XmlResourceTest < ActiveSupport::TestCase
     assert_equal [true, false, true], orders.map { |o| o.finished }
   end
   
+  test 'Inflections' do
+    xml = load_xml(:inflection)
+    camels = Camel.collection_from_xml(xml)
+    dromedaries = Dromedary.collection_from_xml(xml)
+    assert_equal [2, 2], camels.map(&:humps)
+    assert_equal [1], dromedaries.map(&:humps)
+    
+    shark = Shark.collection_from_xml(xml).first
+    assert_equal '2 m', shark.shark_size
+    assert_equal 'white', shark.shark_color
+    
+    elephant = Elephant.collection_from_xml(xml).first
+    assert_equal 'grey', elephant.color
+  end
+  
   private
   
   def orders
     @orders
+  end
+  
+  def load_xml(name)
+    File.read(File.expand_path(File.dirname(__FILE__) + "/../data/#{name}.xml"))
   end
   
 end

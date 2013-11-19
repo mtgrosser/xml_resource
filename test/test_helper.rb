@@ -24,9 +24,8 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
 require 'test/unit'
+require 'byebug'
 
 require 'xml_resource'
 
-require File.expand_path('../models/item', __FILE__)
-require File.expand_path('../models/contact', __FILE__)
-require File.expand_path('../models/order', __FILE__)
+Pathname.glob(Pathname.new(__FILE__).dirname.join('models').join('*.rb')).each { |model| require model.to_s.sub(/\.rb\z/, '') }
