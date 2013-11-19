@@ -8,8 +8,8 @@ module XmlResource
     self.objects = {}
     self.inflection = :underscore
   
-    class XmlResource::ParseError < Exception; end
-    class XmlResource::TypeCastError < Exception; end
+    class XmlResource::ParseError < StandardError; end
+    class XmlResource::TypeCastError < StandardError; end
   
     class << self
     
