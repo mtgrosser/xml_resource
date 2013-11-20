@@ -23,7 +23,7 @@ module XmlResource
             if !value.nil? && type = attribute_type(name)
               value = cast_to(type, value)
             end
-            attrs[name] = value.nil? ? default_attrs[name] : value
+            attrs[name] = value
           end
         end
         self.objects.each do |name, options|
@@ -36,7 +36,7 @@ module XmlResource
             attrs[name] = collection_class(name).collection_from_xml(xml.at(xpath))
           end
         end
-        new attrs
+        new attrs.reject { |k, v| v.nil? }.reverse_merge(default_attrs)
       end
     
       def collection_from_xml(xml_or_string, default_attrs = {})
