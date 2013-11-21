@@ -5,7 +5,7 @@ require "xml_resource/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.date        = '2013-11-19'
+  s.date        = '2013-11-20'
   s.name        = "xml_resource"
   s.version     = XmlResource::VERSION
   s.license     = 'MIT'
