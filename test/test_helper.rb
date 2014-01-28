@@ -28,4 +28,11 @@ require 'byebug'
 
 require 'xml_resource'
 
-Pathname.glob(Pathname.new(__FILE__).dirname.join('models').join('*.rb')).each { |model| require model.to_s.sub(/\.rb\z/, '') }
+require_relative 'models/camelid'
+require_relative 'models/camel'
+require_relative 'models/contact'
+require_relative 'models/dromedary'
+require_relative 'models/elephant'
+require_relative 'models/item'
+require_relative 'models/order'
+require_relative 'models/shark'
