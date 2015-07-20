@@ -28,7 +28,7 @@ require 'byebug'
 require 'active_support/testing/autorun'
 require 'active_support/test_case'
 
-ActiveSupport::TestCase.test_order = :random
+ActiveSupport::TestCase.test_order = :random if ActiveSupport::TestCase.respond_to?(:test_order=)
 
 require 'xml_resource'
 
