@@ -1,4 +1,6 @@
-class Contact < XmlResource::Base
+class Contact
+  include XmlResource::Model
+  
   has_attributes :first_name, :last_name, :type => :string
   
   def name

@@ -1,4 +1,6 @@
-class Shark < XmlResource::Base
+class Shark
+  include XmlResource::Model
+    
   self.inflection = :dasherize
   
   has_attribute :shark_color

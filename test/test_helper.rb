@@ -23,8 +23,12 @@ end
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
-require 'test/unit'
 require 'byebug'
+
+require 'active_support/testing/autorun'
+require 'active_support/test_case'
+
+ActiveSupport::TestCase.test_order = :random
 
 require 'xml_resource'
 

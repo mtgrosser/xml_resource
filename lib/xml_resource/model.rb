@@ -1,18 +1,20 @@
 module XmlResource
-  class Base
+  module Model
     TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE', 'on', 'ON'].to_set
     
-    class_attribute :attributes, :collections, :objects, :root_path, :remove_namespaces, :inflection
-    self.attributes = {}
-    self.collections = {}
-    self.objects = {}
-    self.inflection = :underscore
+    def self.included(base)
+      base.extend ClassMethods
+      base.class_eval do
+        class_attribute :attributes, :collections, :objects, :root_path, :remove_namespaces, :inflection
+        self.attributes = {}
+        self.collections = {}
+        self.objects = {}
+        self.inflection = :underscore
+      end
+    end
   
-    class XmlResource::ParseError < StandardError; end
-    class XmlResource::TypeCastError < StandardError; end
-  
-    class << self
-    
+    module ClassMethods
+      
       def from_xml(xml_or_string, default_attrs = {})
         xml_or_string and xml = parse(xml_or_string) or return
         attrs = {}
@@ -26,17 +28,18 @@ module XmlResource
             attrs[name] = value
           end
         end
+        instance = new(attrs.reject { |k, v| v.nil? }.reverse_merge(default_attrs))
         self.objects.each do |name, options|
           if xpath = object_xpath(name)
-            attrs[name] = object_class(name).from_xml(xml.at(xpath))
+            instance.public_send("#{name}=", object_class(name).from_xml(xml.at(xpath)))
           end
         end
         self.collections.each do |name, options|
           if xpath = collection_xpath(name)
-            attrs[name] = collection_class(name).collection_from_xml(xml.at(xpath))
+            instance.public_send("#{name}=", collection_class(name).collection_from_xml(xml.at(xpath)))
           end
         end
-        new attrs.reject { |k, v| v.nil? }.reverse_merge(default_attrs)
+        instance
       end
     
       def collection_from_xml(xml_or_string, default_attrs = {})
@@ -64,7 +67,7 @@ module XmlResource
       protected
     
       def has_attribute(name, options = {})
-        self.attributes = attributes.merge(name.to_sym => options.symbolize_keys!)
+        self.attributes = attributes.merge(name.to_sym => options.symbolize_keys)
         attribute_accessor_method name
       end
     
@@ -74,12 +77,12 @@ module XmlResource
       end
     
       def has_object(name, options = {})
-        self.objects = objects.merge(name.to_sym => options.symbolize_keys!)
+        self.objects = objects.merge(name.to_sym => options.symbolize_keys)
         attr_accessor name
       end
     
       def has_collection(name, options = {})
-        self.collections = collections.merge(name.to_sym => options.symbolize_keys!)
+        self.collections = collections.merge(name.to_sym => options.symbolize_keys)
         define_method "#{name}" do
           instance_variable_get("@#{name}") or instance_variable_set("@#{name}", [])
         end

@@ -1,4 +1,6 @@
-class Order < XmlResource::Base
+class Order
+  include XmlResource::Model
+  
   has_attribute :id, :type => :integer
   has_attribute :date, :type => :date, :xpath => 'info/date'
   has_attribute :foobar, :xpath => 'info/foo[@type="bar"]'

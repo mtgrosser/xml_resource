@@ -9,7 +9,7 @@ Install
 In your Gemfile:
 
 ```ruby
-gem 'xml_resource', '~> 2.0.0'
+gem 'xml_resource', '~> 3.0.0'
 ```
 
 Use
@@ -37,14 +37,18 @@ xml = %q{
 </library>
 }
 
-class Library < XmlResource::Base
+class Library
+  include XmlResource::Model
+  
   has_collection :books
 
   has_attribute :open_from, :xpath => 'hours/from'
   has_attribute :open_till, :xpath => 'hours/till'
 end
 
-class Book < XmlResource::Base
+class Book
+  include XmlResource::Model
+  
   has_attribute :name
   has_attribute :author
   has_attribute :published, :type => :date, :xpath => 'firstpublished'
