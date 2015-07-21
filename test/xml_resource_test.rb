@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative 'test_helper'
 
 class XmlResourceTest < ActiveSupport::TestCase
 
@@ -70,10 +70,21 @@ class XmlResourceTest < ActiveSupport::TestCase
     assert_equal [1, 3], dromedaries.map(&:humps)
   end
   
+  test 'Custom constructor' do
+    assert_nothing_raised do
+      gadget = Gadget.new('foo', magic: 5)
+      assert_equal 5, gadget.magic
+      assert_equal 'foo', gadget.name
+    end
+    assert_raise ArgumentError do
+      gadget = Gadget.new(nil, magic: 6)
+    end
+  end
+  
   private
   
   def load_xml(name)
-    File.read(File.expand_path(File.dirname(__FILE__) + "/../data/#{name}.xml"))
+    File.read(File.expand_path(File.join(File.dirname(__FILE__), 'data', "#{name}.xml")))
   end
   
 end

@@ -177,7 +177,8 @@ module XmlResource
     end
   
     def initialize(attrs = {})
-      self.attributes = attrs
+      self.attributes = attrs if attrs
+      super()
     end
 
     def valid?
@@ -185,7 +186,9 @@ module XmlResource
     end
   
     def attributes=(attrs)
-      attrs.each { |name, value| send "#{name}=", value }
+      attrs.each do |attr, value|
+        self.public_send("#{attr}=", value)
+      end
     end
   
     def attributes
