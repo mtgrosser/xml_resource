@@ -1,8 +1,15 @@
+3.0.0 (2015-07-21)
+------------------
+
+* Use mixins instead of inheritance
+
+
 2.0.4 (2013-11-19)
 ------------------
 
 * Default attributes can be specified
   for from_xml and collection_from_xml methods
+
 
 2.0.3 (2013-11-19)
 ------------------
