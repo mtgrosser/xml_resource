@@ -5,6 +5,7 @@
     <info>
       <foo type="bar">A</foo>
       <date>2012-08-27</date>
+      <created_at>2017-06-15 12:00:00</created_at>
       <foo type="non">sense</foo>
     </info>
     <shipping_cost>12.99</shipping_cost>
@@ -31,6 +32,7 @@
       <foo type="non">blubb</foo>
       <foo type="bar">B</foo>
       <date>2012-08-26</date>
+      <created_at>2017-01-15 12:00:00</created_at>
     </info>
     <shipping_cost>10</shipping_cost>
     <customer>
@@ -60,6 +62,7 @@
       <foo type="non">wah</foo>
       <foo type="bar">C</foo>
       <date>2012-08-25</date>
+      <created_at></created_at>
     </info>
     <shipping_cost>-12.99</shipping_cost>
     <contact>

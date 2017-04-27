@@ -6,7 +6,8 @@ class Order
   has_attribute :foobar, :xpath => 'info/foo[@type="bar"]'
   has_attribute :finished, :type => :boolean
   has_attribute :shipping_cost, :type => :decimal
-
+  has_attribute :created_at, type: :time, xpath: 'info/created_at'
+  
   has_object :customer, :class_name => "Contact"
   has_object :contact
   

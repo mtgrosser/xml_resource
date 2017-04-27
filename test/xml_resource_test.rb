@@ -20,7 +20,7 @@ class XmlResourceTest < ActiveSupport::TestCase
   test 'Instantiation of objects' do
     assert_equal "Mister Spock", @orders.first.customer.name
     assert_equal "Käptn Kirk", @orders.second.customer.name
-    assert_equal nil, @orders.third.customer
+    assert_nil @orders.third.customer
     assert_equal ['E F', 'A B', 'C D'], @orders.map(&:contact).map(&:name)
   end
   
@@ -77,8 +77,14 @@ class XmlResourceTest < ActiveSupport::TestCase
       assert_equal 'foo', gadget.name
     end
     assert_raise ArgumentError do
-      gadget = Gadget.new(nil, magic: 6)
+      Gadget.new(nil, magic: 6)
     end
+  end
+  
+  test 'Time attributes are parsed with respect of time zones' do
+    assert_equal Time.parse('2017-06-15 12:00:00 +0200'), @orders[0].created_at
+    assert_equal '2017-01-15 12:00:00 +0100', @orders[1].created_at.to_s
+    assert_nil @orders[2].created_at
   end
   
   private

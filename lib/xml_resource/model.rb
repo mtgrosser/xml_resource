@@ -132,8 +132,8 @@ module XmlResource
         when :float     then value.to_f
         when :boolean   then cast_to_boolean(value)
         when :decimal   then BigDecimal.new(value)
-        when :date      then Date.parse(value)
-        when :datetime  then DateTime.parse(value)
+        when :date      then value.presence && Date.parse(value)
+        when :time      then value.presence && Time.parse(value)
         else
           raise XmlResource::TypeCastError, "don't know how to cast #{value.inspect} to #{type}"
         end
