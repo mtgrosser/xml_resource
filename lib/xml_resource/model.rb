@@ -131,7 +131,7 @@ module XmlResource
         when :integer   then value.to_i
         when :float     then value.to_f
         when :boolean   then cast_to_boolean(value)
-        when :decimal   then BigDecimal.new(value)
+        when :decimal   then BigDecimal(value, Float::DIG + 1)
         when :date      then value.presence && Date.parse(value)
         when :time      then value.presence && Time.parse(value)
         else
